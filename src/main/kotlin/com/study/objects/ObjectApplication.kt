@@ -1,4 +1,4 @@
-package com.study.`object`
+package com.study.objects
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
