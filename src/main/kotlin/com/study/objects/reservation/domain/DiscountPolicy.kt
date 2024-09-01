@@ -19,4 +19,11 @@ class DiscountPolicy(
 
     val isPercentPolicy: Boolean
         get() = policyType == PolicyType.PERCENT_POLICY
+
+    fun calcuateDiscount(movie: Movie): Money =
+        when {
+            isAmountPolicy -> amount ?: Money.ZERO
+            isPercentPolicy -> percent?.let { movie.fee.times(it) } ?: Money.ZERO
+            else -> Money.ZERO
+        }
 }

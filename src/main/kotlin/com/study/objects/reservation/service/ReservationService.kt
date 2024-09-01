@@ -1,9 +1,6 @@
 package com.study.objects.reservation.service
 
-import com.study.objects.generic.Money
 import com.study.objects.reservation.domain.DiscountCondition
-import com.study.objects.reservation.domain.DiscountPolicy
-import com.study.objects.reservation.domain.Movie
 import com.study.objects.reservation.domain.Reservation
 import com.study.objects.reservation.domain.Screening
 import com.study.objects.reservation.persistence.DiscountConditionRepository
@@ -38,12 +35,7 @@ class ReservationService(
 
         val fee =
             if (condition != null) {
-                movie.fee.minus(
-                    calculateDiscount(
-                        policy = discountPolicy,
-                        movie = movie,
-                    ),
-                )
+                movie.fee.minus(discountPolicy.calcuateDiscount(movie))
             } else {
                 movie.fee
             }
@@ -68,14 +60,4 @@ class ReservationService(
         }
         return null
     }
-
-    private fun calculateDiscount(
-        policy: DiscountPolicy,
-        movie: Movie,
-    ): Money =
-        when {
-            policy.isAmountPolicy -> policy.amount ?: Money.ZERO
-            policy.isPercentPolicy -> policy.percent?.let { movie.fee.times(it) } ?: Money.ZERO
-            else -> Money.ZERO
-        }
 }
