@@ -14,10 +14,10 @@ class DiscountPolicy(
         AMOUNT_POLICY,
     }
 
-    val isAmountPolicy: Boolean
+    private val isAmountPolicy: Boolean
         get() = policyType == PolicyType.AMOUNT_POLICY
 
-    val isPercentPolicy: Boolean
+    private val isPercentPolicy: Boolean
         get() = policyType == PolicyType.PERCENT_POLICY
 
     fun calcuateDiscount(movie: Movie): Money =
