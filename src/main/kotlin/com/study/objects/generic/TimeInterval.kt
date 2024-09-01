@@ -1,4 +1,4 @@
-package com.study.objects.reservation.domain
+package com.study.objects.generic
 
 import java.time.LocalTime
 

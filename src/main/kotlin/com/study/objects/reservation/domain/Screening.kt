@@ -4,7 +4,7 @@ import java.time.DayOfWeek
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-data class Screening(
+class Screening(
     val id: Long? = null,
     val movieId: Long,
     val sequence: Int,

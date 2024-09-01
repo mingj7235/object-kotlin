@@ -1,6 +1,7 @@
 package com.study.objects
 
 import com.study.objects.generic.Money
+import com.study.objects.generic.TimeInterval
 import com.study.objects.reservation.domain.DiscountCondition
 import com.study.objects.reservation.domain.DiscountPolicy
 import com.study.objects.reservation.domain.Movie
@@ -73,32 +74,36 @@ class MainRunner {
                 policyId = discountPolicy.id!!,
                 conditionType = DiscountCondition.ConditionType.SEQUENCE_CONDITION,
                 dayOfWeek = null,
-                startTime = null,
-                endTime = null,
+                interval = null,
                 sequence = 1,
             ),
             DiscountCondition(
                 policyId = discountPolicy.id,
                 conditionType = DiscountCondition.ConditionType.SEQUENCE_CONDITION,
                 dayOfWeek = null,
-                startTime = null,
-                endTime = null,
+                interval = null,
                 sequence = 10,
             ),
             DiscountCondition(
                 policyId = discountPolicy.id,
                 conditionType = DiscountCondition.ConditionType.PERIOD_CONDITION,
                 dayOfWeek = MONDAY,
-                startTime = of(10, 0),
-                endTime = of(12, 0),
+                interval =
+                    TimeInterval(
+                        startTime = of(10, 0),
+                        endTime = of(12, 0),
+                    ),
                 sequence = null,
             ),
             DiscountCondition(
                 policyId = discountPolicy.id,
                 conditionType = DiscountCondition.ConditionType.PERIOD_CONDITION,
                 dayOfWeek = WEDNESDAY,
-                startTime = of(18, 0),
-                endTime = of(21, 0),
+                interval =
+                    TimeInterval(
+                        startTime = of(18, 0),
+                        endTime = of(21, 0),
+                    ),
                 sequence = null,
             ),
         ).forEach { discountConditionRepository.insert(it) }

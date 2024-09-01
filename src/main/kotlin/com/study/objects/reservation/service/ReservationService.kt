@@ -64,30 +64,7 @@ class ReservationService(
         screening: Screening,
     ): DiscountCondition? {
         discountConditions.forEach { condition ->
-            if (condition.isPeriodCondition) {
-                if (screening.isPlayedIn(
-                        dayOfWeek = condition.dayOfWeek!!,
-                        startTime = condition.interval!!.startTime,
-                        endTime = condition.interval.endTime,
-                    )
-                ) {
-                    return condition
-                }
-            } else if (condition.isSequenceCondition) {
-                if (condition.sequence == screening.sequence) {
-                    return condition
-                }
-            } else if (condition.isCombinedCondition) {
-                if (condition.sequence == screening.sequence &&
-                    screening.isPlayedIn(
-                        dayOfWeek = condition.dayOfWeek!!,
-                        startTime = condition.interval!!.startTime,
-                        endTime = condition.interval.endTime,
-                    )
-                ) {
-                    return condition
-                }
-            }
+            if (condition.isSatisfiedBy(screening)) return condition
         }
         return null
     }
