@@ -67,14 +67,24 @@ class ReservationService(
             if (condition.isPeriodCondition) {
                 if (screening.isPlayedIn(
                         dayOfWeek = condition.dayOfWeek!!,
-                        startTime = condition.startTime!!,
-                        endTime = condition.endTime!!,
+                        startTime = condition.interval!!.startTime,
+                        endTime = condition.interval.endTime,
                     )
                 ) {
                     return condition
                 }
-            } else {
+            } else if (condition.isSequenceCondition) {
                 if (condition.sequence == screening.sequence) {
+                    return condition
+                }
+            } else if (condition.isCombinedCondition) {
+                if (condition.sequence == screening.sequence &&
+                    screening.isPlayedIn(
+                        dayOfWeek = condition.dayOfWeek!!,
+                        startTime = condition.interval!!.startTime,
+                        endTime = condition.interval.endTime,
+                    )
+                ) {
                     return condition
                 }
             }
