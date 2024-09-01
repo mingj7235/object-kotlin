@@ -49,11 +49,16 @@ class MainRunner {
                 screening.id!!,
                 2,
             )
-        println("관객수 : ${reservation.audienceCount}, 요금: ${reservation.fee}")
+        println("관객수 : ${reservation.audienceCount}, 요금: ${reservation.fee.formattedValue}")
     }
 
     private fun initializeData(): Screening {
-        val movie = Movie(title = "한산", runningTime = 150, fee = Money.wons(10000)).also { movieRepository.insert(it) }
+        val movie =
+            Movie(
+                title = "한산",
+                runningTime = 150,
+                fee = Money.wons(10000),
+            ).also { movieRepository.insert(it) }
 
         val discountPolicy =
             DiscountPolicy(
