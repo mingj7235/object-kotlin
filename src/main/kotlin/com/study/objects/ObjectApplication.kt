@@ -38,7 +38,6 @@ class MainRunner {
             screeningRepository = screeningRepository,
             movieRepository = movieRepository,
             discountPolicyRepository = discountPolicyRepository,
-            discountConditionRepository = discountConditionRepository,
             reservationRepository = reservationRepository,
         )
 

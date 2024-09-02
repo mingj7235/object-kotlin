@@ -8,6 +8,7 @@ class DiscountPolicy(
     val policyType: PolicyType,
     val amount: Money? = null,
     val percent: Double? = null,
+    private var conditions: List<DiscountCondition> = emptyList(),
 ) {
     enum class PolicyType {
         PERCENT_POLICY,
@@ -26,4 +27,11 @@ class DiscountPolicy(
             isPercentPolicy -> percent?.let { movie.fee.times(it) } ?: Money.ZERO
             else -> Money.ZERO
         }
+
+    fun findDiscountCondition(screening: Screening): Boolean {
+        conditions.forEach { condition ->
+            if (condition.isSatisfiedBy(screening)) return true
+        }
+        return false
+    }
 }
